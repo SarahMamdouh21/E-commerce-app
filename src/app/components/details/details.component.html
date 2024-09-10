@@ -1,0 +1,56 @@
+@if (detailsproduct) {
+
+    <section>
+        
+            <div class="row justify-content-center align-items-center gx-5 my-3">
+                <div class="col-md-4">
+                    
+                    
+                    <owl-carousel-o [options]="customOptions">
+    
+                        @for (cat of detailsproduct.images; track $index) {
+                            <ng-template carouselSlide >
+                                <div>
+                                    <img [src]="cat" class="w-100  px-2 py-2"  [alt]="">
+                                    
+                                    
+                                </div>
+                              </ng-template>
+                        }
+                    
+                      </owl-carousel-o>
+                    
+                     
+                </div>
+                <div class="col-md-8">
+                    <h4 class="h2 fw-bold">{{detailsproduct.title.split(" ",2).join(" ")}}</h4>
+                    <p class="small text-black fw-semibold py-2">{{detailsproduct.description}}</p>
+                    <div class="d-flex justify-content-between align-items-cente py-2">
+                        <span>{{detailsproduct.price}}</span>
+                        <div>
+                            <span class="text-black fw-semibold">{{detailsproduct.ratingsAverage}}</span>
+                            @for (star of [1,2,3,4,5].slice( 0 ,detailsproduct.ratingsAverage); track $index) {
+                                <span><i class="fas fa-star rating-color"></i></span>
+                            }
+                            @if (detailsproduct.ratingsAverage%1 !==0) {
+                                <span><i class="fas fa-star-half-alt rating-color"></i></span>
+                            }
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="d-flex justify-content-between align-items-center"> 
+                        <button class="btn-main w-75" (click)="addtocart(detailsproduct._id)">+Add</button>
+                        @if (wishlistUserDataId && wishlistUserDataId.includes(detailsproduct._id)) {
+                            <i (click)="removeFromWishlist(detailsproduct.id)" class="fa-solid fa-heart text-danger h3 mx-2 heart cursor-pointer"></i>
+                        }@else if(!wishlistUserDataId.includes(detailsproduct._id)){
+
+                            <i (click)="addToWishlist(detailsproduct._id)" class="fa-solid fa-heart h3 mx-2 heart cursor-pointer"></i>
+                        }
+                    </div>
+        
+                </div>
+            </div>
+       
+    </section>
+}

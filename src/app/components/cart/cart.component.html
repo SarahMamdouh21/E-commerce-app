@@ -1,0 +1,35 @@
+<section class="bg-light rounded-2 my-2 p-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="h2 text-black fw-bold">Cart Shop</h1>
+        <button  class="btn btn-primary px-3 py-2 rounded-3 fs-5" [routerLink]="['/orders', cartItems._id]"  >checkout</button>
+    </div>
+    <div class="d-flex justify-content-between align-items-center my-4">
+        
+        <p class="fw-bolder fs-5">total price: <span class="text-main"> {{cartItems.totalCartPrice|currency:'EGP'}}</span></p>
+        <h5 class="fw-bold fs-6 h6">total number of items:<span class="text-main"> {{ totalProducts }}</span></h5>
+    </div>
+    @for (item of cartItems.products; track $index) {
+        <div class="row d-flex align-items-center border-bottom mb-4 pb-2">
+            <div class="col-md-2">
+                <img [src]="item.product.imageCover" class="w-100" alt="">
+            </div>
+            <div class="col-md-10 d-flex justify-content-between">
+                <div>
+
+                    <h4 class="h6" class="fw-bold fs-6">{{item.product.title| termtxt:2}}</h4>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold small">{{item.price |currency: 'EGP'}}</span>
+                      
+                    </div>
+                    <button (click)="removeItem(item.product._id)" class=" btn text-danger small p-0"><i class="fa-solid fa-trash me-1"></i>Remove</button>
+                </div>
+                <div >
+                    <button (click)="updateItem(item.product._id,item.count + 1)" class="btn btn-count btn-md">+</button>
+                    <span  class="mx-3 ">{{item.count}}</span>
+                    <button (click)="updateItem(item.product._id,item.count - 1)" class="btn btn-count btn-md">-</button>
+                </div>
+            </div>
+        </div>
+    }
+    <button (click)="clearItems()" class="btn-count btn btn-lg d-block mx-auto fw-bolder fs-5"> Clear Your Cart</button>
+</section>

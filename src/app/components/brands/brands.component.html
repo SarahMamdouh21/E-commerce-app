@@ -1,0 +1,17 @@
+<div class="barnds my-2">
+    <h1 class="text-center my-5 text-main fw-bolder text-4xl">All Brands</h1>
+
+    
+    
+    <div class="row">
+        @for (brand of brandsList; track $index) {
+        <div class="col-md-3 g-4">
+            <div class=" cursor-pointer product border-secondary-subtle">
+                <img [src]="brand.image" class="w-100" [alt]="brand.name">
+                <p class="text-center py-3 text-2xl font-bolder border-t">{{brand.name}}</p>
+            </div>
+        </div>
+        }
+    </div>
+    
+</div>

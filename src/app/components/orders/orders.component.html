@@ -1,0 +1,44 @@
+<form [formGroup]= "orders" (ngSubmit)="orderSubmit()">
+    <div>
+        <label for="details">Details</label>
+        <input type="text" name="details" id="details" class="form-control" formControlName="details">
+        @if (orders.get('details')?.errors && orders.get('details')?.touched) {
+            <div class="alert alert-danger mt-2 w-50" role="alert">
+                @if (orders.get('details')?.errors?.['required']) {
+                <p class="p-1 m-0"> details is required </p>
+                }
+                
+            </div>
+            }
+
+    </div>
+    <div>
+
+        <label for="phone">Phone</label>
+        <input type="tel" name="phone" id="phone" class="form-control" formControlName="phone">
+        @if (orders.get('phone')?.errors && orders.get('phone')?.touched) {
+            <div class="alert alert-danger mt-2 w-50" role="alert">
+                @if (orders.get('phone')?.errors?.['required']) {
+                <p class="p-1 m-0"> phone is required </p>
+                }
+                
+            </div>
+            }
+    </div>
+    <div>
+
+        
+                <label for="city">City</label>
+                <input type="text" name="city" id="city" class="form-control" formControlName="city">
+                @if (orders.get('city')?.errors && orders.get('city')?.touched) {
+                    <div class="alert alert-danger mt-2 w-50" role="alert">
+                        @if (orders.get('city')?.errors?.['required']) {
+                        <p class="p-1 m-0"> city is required </p>
+                        }
+                    </div>
+                    }
+    </div>
+
+    <button class="w-100 btn btn-outline-info my-4" type="submit" [disabled]="orders.invalid">Pay Now</button>
+
+</form>
