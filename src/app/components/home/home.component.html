@@ -1,0 +1,81 @@
+<!-- main -->
+<section>
+    <div class="row g-0">
+    <div class="col-md-9">
+        <owl-carousel-o [options]="customOptionsmain">
+            <ng-template carouselSlide><img src="./assets/images/slider-2.jpeg"  height="300" class="w-100" alt=""></ng-template>  
+            <ng-template carouselSlide><img src="../../../assets/images/slider-image-1.jpeg"  height="300" class="w-100" alt=""></ng-template>  
+            <ng-template carouselSlide><img src="../../../assets/images/slider-image-2.jpeg"  height="300" class="w-100" alt=""></ng-template>  
+            <ng-template carouselSlide><img src="../../../assets/images/slider-image-3.jpeg"  height="300" class="w-100" alt=""></ng-template>  
+            <ng-template carouselSlide><img src="../../../assets/images/grocery-banner.png"  height="300" class="w-100" alt=""></ng-template>  
+            <ng-template carouselSlide><img src="../../../assets/images/grocery-banner-2.jpeg"  height="300" class="w-100" alt=""></ng-template>  
+            
+          </owl-carousel-o>
+      
+
+    </div>
+    <div class="col-md-3">
+        <img src="./assets/images/slider-image-2.jpeg"  height="150" class="w-100" alt="">
+        <img src="./assets/images/slider-image-3.jpeg"  height="150" class="w-100" alt="">
+
+    </div>
+    </div>
+</section>
+<!-- categories -->
+<section class="my-2">
+
+    
+    <owl-carousel-o [options]="customOptionscat">
+
+        @for (cat of categorylist; track cat._id) {
+            <ng-template carouselSlide >
+                <div>
+                    <img [src]="cat.image" class="w-100 align-items-center object-fit-cover" [height]="350" [alt]="cat.name">
+                    <h3 class="h6 text-black fw-bolder fs-4 mt-2 text-center">{{cat.name}}</h3>
+                    
+                </div>
+              </ng-template>
+        }
+    
+      </owl-carousel-o>
+</section>
+<!-- products -->
+<section>
+    
+    <input [(ngModel)]="text" placeholder="Search..." type="search" name="search" id="search" class="form-control w-75 my-4 mx-auto">
+    <div class="row gy-4">
+        @for (product of productlist |search :text; track product.id) {
+            <div class="col-md-6 col-lg-3">
+                <div class="product px-2 py-4 rounded border-0"  >
+                    <div [routerLink]="['/details',product.id]"  >
+                        <img [src]="product.imageCover" class="w-100" alt="">
+                    <h3 class="small text-main">{{product.category.name}}</h3>
+                    <h4 class="h6" class="fw-bold fs-6">{{product.title | termtxt:2}}</h4>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold">{{product.price |currency: 'EGP'}}</span>
+                        <div>
+                            <span class="text-muted">{{product.ratingsAverage}}</span>
+                            @for (star of [1,2,3,4,5].slice( 0 ,product.ratingsAverage); track $index) {
+                                <span><i class="fas fa-star rating-color"></i></span>
+                            }
+                            @if (product.ratingsAverage%1 !==0) {
+                                <span><i class="fas fa-star-half-alt rating-color"></i></span>
+                            }
+                        </div>
+                    </div>
+                    </div>
+                    <div  class="d-flex align-items-center justify-content-center">
+                        <button  class="w-75 btn-main mt-4" (click)="addtocart(product.id)"> + Add</button>
+                        @if (wishlistUserDataId && wishlistUserDataId.includes(product._id)) {
+                            <i (click)="removeFromWishlist(product.id)" class="fa-solid fa-heart text-danger h3 mx-2 heart"></i>
+                        }@else if(!wishlistUserDataId.includes(product.id)){
+
+                            <i (click)="addToWishlist(product.id)" class="fa-solid fa-heart h3 mx-2 heart"></i>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="overlay-container" aria-live="polite"><div id="toast-container" class="toast-top-right toast-container"></div></div>
+</section>

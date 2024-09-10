@@ -1,0 +1,46 @@
+<section class="container my-5">
+    <h2 class="text-center mb-4">Your Orders</h2>
+    
+    
+  
+   
+
+        <div  class="row gy-4">
+            @for (order of allordersList; track $index) {
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between">
+                      <span>Order #{{ order._id }}</span>
+                      <span>{{ order.createdAt | date: 'medium' }}</span>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Total: {{ order.totalOrderPrice| currency:'EGP' }}</h5>
+                      <h5 class="fw-bold fs-6 h6">total number of items:<span class="text-main"> {{ totalProducts }}</span></h5>
+                      
+                      <ul class="list-group list-group-flush">
+                        @for (item of order.cartItems; track $index) {
+                            <li  class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <div>
+                                    <strong>{{ item.product.title }}</strong>
+                                    <small class="d-block">Quantity: {{ item.count }}</small>
+                                  </div>
+                                  <span>{{ item.price | currency:'EGP' }}</span>
+                                </div>
+                              </li>
+                        }
+                        
+                      </ul>
+                    </div>
+                    <div class="card-footer text-end">
+                      <button class="btn btn-outline-primary btn-sm">View Details</button>
+                    </div>
+                  </div>
+                </div>
+            }
+        </div>
+    
+  
+  </section>
+  

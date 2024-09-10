@@ -1,0 +1,131 @@
+<section class=" my-5">
+    <h1 class="h2 text-black fw-bold fs-2 mb-4">register now</h1>
+
+    <form  [formGroup]="registerform" (ngSubmit)="registersubmit()">
+        <div class="my-3">
+              <label for="name">Name:</label>
+              <input [ngClass]="{
+                'is-valid': !registerform.get('name')?.errors && (registerform.get('name')?.touched ||registerform.get('name')?.dirty),
+                'is-invalid': registerform.get('name')?.errors && (registerform.get('name')?.touched ||registerform.get('name')?.dirty)}" type="text" name="name" id="name"  class="form-control" formControlName="name">
+              
+
+              @if (registerform.get('name')?.errors && (registerform.get('name')?.touched ||registerform.get('name')?.dirty)) {
+                  
+
+                      <div class="alert alert-danger mt-2 w-50" role="alert">
+                        @if (registerform.get('name')?.getError('required')) {
+
+                            <p class="m-0">name is required</p>
+                        }
+                        @else if (registerform.get('name')?.getError('minlength')) {
+
+                            <p class="m-0">name should be more than or equal 3 chars</p>
+                        }
+                        @else if (registerform.get('name')?.getError('maxlength')) {
+
+                            <p class="m-0">name should be less than or equal 20 chars</p>
+                        }
+                      </div>
+                  
+
+              }
+        </div>
+
+        <div class="my-3">
+              <label for="email">Email:</label>
+              <input [ngClass]="{
+                'is-valid': !registerform.get('email')?.errors && (registerform.get('email')?.touched ||registerform.get('email')?.dirty),
+                'is-invalid': registerform.get('email')?.errors && (registerform.get('email')?.touched ||registerform.get('email')?.dirty)}" type="email" name="email" id="email"  class="form-control" formControlName="email">
+
+              @if (registerform.get('email')?.errors && (registerform.get('email')?.touched ||registerform.get('email')?.dirty)) {
+                  
+
+                <div class="alert alert-danger mt-2 w-50" role="alert">
+                  @if (registerform.get('email')?.getError('required')) {
+
+                      <p class="m-0">email is required</p>
+                  }
+                  @else if (registerform.get('email')?.getError('email')) {
+
+                      <p class="m-0">Enter valid email</p>
+                  }
+                  
+                </div>
+
+        }
+        </div>
+
+        <div class="my-3">
+              <label for="phone">Phone:</label>
+              <input [ngClass]="{
+                'is-valid': !registerform.get('phone')?.errors && (registerform.get('phone')?.touched ||registerform.get('phone')?.dirty),
+                'is-invalid': registerform.get('phone')?.errors && (registerform.get('phone')?.touched ||registerform.get('phone')?.dirty)}" type="tel" name="phone" id="phone"  class="form-control" formControlName="phone">
+
+              @if (registerform.get('phone')?.errors && (registerform.get('phone')?.touched ||registerform.get('phone')?.dirty)) {
+                  
+
+                <div class="alert alert-danger mt-2 w-50" role="alert">
+                  @if (registerform.get('phone')?.getError('required')) {
+
+                      <p class="m-0">phone is required</p>
+                  }
+                  @else if (registerform.get('phone')?.getError('pattern')) {
+
+                      <p class="m-0">Enter valid phone</p>
+                  }
+                  
+                </div>
+
+        }
+        </div>
+        <div class="my-3">
+              <label for="password">Password:</label>
+              <input [ngClass]="{
+                'is-valid': !registerform.get('password')?.errors && (registerform.get('password')?.touched ||registerform.get('password')?.dirty),
+                'is-invalid': registerform.get('password')?.errors && (registerform.get('password')?.touched ||registerform.get('password')?.dirty)}" type="password" name="password" id="password"  class="form-control" formControlName="password">
+             
+              @if (registerform.get('password')?.errors && (registerform.get('password')?.touched ||registerform.get('password')?.dirty)) {
+                <div class="alert alert-danger mt-2 w-50" role="alert">
+                      @if (registerform.get('password')?.getError('required')) {
+                          <p class="m-0">password is required</p>
+                      }
+                      @else if (registerform.get('password')?.getError('pattern')) {
+                        <p class="p-1 m-0"> must be:
+                          <br>
+                          * Start with a letter (either uppercase or lowercase).
+                          <br>
+                          * Be between 6 and 9 characters in total.
+                          <br>
+                          * Can only contain letters (A-Z or a-z) and numbers (0-9)
+                          
+                      </p>
+                      }
+                      
+                </div>
+            }
+             
+        </div>
+
+        <div class="my-3">
+              <label for="rePassword">Re-Password:</label>
+              <input type="password" name="rePassword" id="rePassword"  class="form-control" formControlName="rePassword">
+              @if (registerform.getError('mismatch') && registerform.get('rePassword')?.touched ) {
+                <p class="alert alert-danger mt-2 w-50 m-0">password not matched</p>
+            }
+        </div>
+
+
+        <button  type="submit" class="btn-main my-3 ms-auto d-block" [disabled]="registerform.invalid">Register now
+            @if (loading) {
+                <span><i class="fas fa-spin fa-spinner"></i></span>
+            }
+        </button>
+        @if (msgerror) {
+            <p class="alert alert-danger w-50 m-0">{{msgerror}}</p>
+        }
+        @if (msgsuccess) {
+            <p class="alert alert-success w-50 m-0">Success</p>
+        }
+    </form>
+</section>
+
